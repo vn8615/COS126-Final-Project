@@ -21,8 +21,9 @@ public class simulator extends JPanel implements ActionListener {
     static JLabel AText;
     static JLabel thetaText;
 
-    private static double[] values = new double[6];
+    private static final double[] values = new double[6];
 
+    // default constructor
     public simulator() {
 
     }
@@ -52,32 +53,11 @@ public class simulator extends JPanel implements ActionListener {
         JTextField[] fields = {tau, dt, k, m, A, theta};
         JLabel[] labels = {tauText, dtText, kText, mText, AText, thetaText};
 
-        for (int i = 0; i < labels.length; i++) {
-            String name = labels[i].getText();
-            StringBuilder whiteSpace = new StringBuilder();
-            int remain = 15 - name.length();
-            for (int j = 0; j < remain; j++) {
-                whiteSpace.append(" ");
-            }
-            String addSpace = whiteSpace.toString();
-            name += addSpace;
-            labels[i].setText(name);
+        for (int i = 0; i < fields.length; i++) {
+            p.add(labels[i]);
+            p.add(fields[i]);
         }
-
-        p.add(tauText);
-        p.add(tau);
-        p.add(dtText);
-        p.add(dt);
-        p.add(kText);
-        p.add(k);
-        p.add(mText);
-        p.add(m);
-        p.add(AText);
-        p.add(A);
-        p.add(thetaText);
-        p.add(theta);
         p.add(b);
-
 
         f.add(p);
         f.setSize(575, 500);
@@ -87,15 +67,19 @@ public class simulator extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent evt) {
         String s = evt.getActionCommand();
-        JLabel[] labels = {tauText, dtText, kText, mText, AText, thetaText};
+        JTextField[] fields = {tau, dt, k, m, A, theta};
         if (s.equals("submit")) {
             for (int i = 0; i < values.length; i++) {
-                values[i] = Double.parseDouble(labels[i].getText());
+                values[i] = Double.parseDouble(fields[i].getText());
             }
-            for (int i = 0; i < labels.length; i++) {
-                labels[i].setText("");
+            for (int i = 0; i < fields.length; i++) {
+                fields[i].setText("");
             }
         }
+        // debugging
+        /* for (int i = 0; i < values.length; i++) {
+            System.out.println(values[i]);
+        } */
     }
 
     public static void main(String[] args) {
@@ -119,6 +103,14 @@ public class simulator extends JPanel implements ActionListener {
         double v = 0;
         double r = A;
 
+        /* System.out.println(tau);
+        System.out.println(dt);
+        System.out.println(k);
+        System.out.println(m);
+        System.out.println(w);
+        System.out.println(A);
+        System.out.println(theta); */
+
         StdDraw.setXscale(-5, 5);
         StdDraw.setYscale(-5, 5);
         StdDraw.enableDoubleBuffering();
@@ -141,7 +133,6 @@ public class simulator extends JPanel implements ActionListener {
             StdDraw.pause(20);
             bfhbd
         }
-
     }
 
     public static double[] decompose(double r, double theta) {
