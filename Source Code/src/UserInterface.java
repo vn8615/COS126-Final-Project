@@ -48,7 +48,7 @@ public class UserInterface extends JPanel implements ActionListener {
         k = new JTextField(20);
         kText = new JLabel("Spring constant (N/m)");
         m = new JTextField(20);
-        mText = new JLabel("Mass (g)");
+        mText = new JLabel("Mass (kg)");
         A = new JTextField(20);
         AText = new JLabel("Amplitude (m)");
         theta = new JTextField(20);
