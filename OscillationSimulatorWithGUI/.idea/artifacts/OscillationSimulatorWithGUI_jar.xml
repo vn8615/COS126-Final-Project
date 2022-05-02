@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="OscillationSimulatorWithGUI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/OscillationSimulatorWithGUI_jar</output-path>
+    <root id="archive" name="OscillationSimulatorWithGUI.jar">
+      <element id="module-output" name="OscillationSimulatorWithGUI" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../markov/.lift/stdlib.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../markov/.lift/introcs.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../markov/.lift/checkstyle-lift.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

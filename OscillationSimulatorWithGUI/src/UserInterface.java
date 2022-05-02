@@ -1,3 +1,12 @@
+/****************************************************************************
+ *  Compilation:  javac-introcs UserInterface.java
+ *  Execution:    java-introcs UserInterface
+ *  Dependencies: none
+ *
+ *  GUI User Interface .java class for this program. Displays a GUI and then
+ *  collects user input then stores the input into a state variable array.
+ ******************************************************************************/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,15 +35,22 @@ public class UserInterface extends JPanel implements ActionListener {
 
     GridLayout layout = new GridLayout(0, 2);
 
-    // declare and initialize array to store values from Swing input
+    // declare and initialize array to store the physical values from Swing input
     private double[] values = new double[7];
 
     // declare and initialize boolean for whether "submit" has been pressed
+    // Variable set to volatile so that it's updated universally into main memory
+    // Purpose is because we are running two threads: StdDraw and the Swing GUI with
+    // the StdDraw's behavior depending on the Swing GUI. So here the volatile keyword
+    // ensures that both threads are on the same page whenever submit is pressed.
+    // consultation from https://jenkov.com/tutorials/java-concurrency/volatile.html
     private volatile boolean hasSubmitted = false;
 
     // method for showing the Swing GUI
     public void showGUI() {
-        // initialize instance variables to sizes, names and other settings; add Action Listener to submit button
+        // initialize instance variables to sizes, names and other settings; add
+        // Action Listener to submit button
+
         f = new JFrame("inputs");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -78,7 +94,12 @@ public class UserInterface extends JPanel implements ActionListener {
         f.add(p, BorderLayout.CENTER);
         f.add(pButton, BorderLayout.SOUTH);
 
+        // Set window size to 500x500
         f.setSize(500, 500);
+
+        // centers the window on the screen
+        f.setLocationRelativeTo(null);
+
         f.setVisible(true);
     }
 
@@ -98,6 +119,14 @@ public class UserInterface extends JPanel implements ActionListener {
             }
             // hasSubmitted becomes true
             hasSubmitted = true;
+
+            // Test
+            System.out.println("Submit Button Pressed");
+            System.out.print("The values are: ");
+
+            for (double i : values) {
+                System.out.print(i + ", ");
+            }
         }
     }
 
@@ -114,5 +143,21 @@ public class UserInterface extends JPanel implements ActionListener {
     // set the hasSubmitted value of the object to the existing hasSubmitted
     public void setHasSubmitted(boolean hasSubmitted) {
         this.hasSubmitted = hasSubmitted;
+    }
+
+    // Main method use for testing!
+    public static void main(String[] args) {
+        UserInterface ui = new UserInterface();
+
+        // Should print false
+        System.out.println(ui.getHasSubmitted());
+
+        ui.setHasSubmitted(true);
+        // Should print true since we changed the value
+        System.out.println(ui.getHasSubmitted());
+
+        // Displays the GUI. Everytime we hit submit, the program
+        // should print "Submit Button Pressed" then "The values are: "
+        ui.showGUI();
     }
 }
