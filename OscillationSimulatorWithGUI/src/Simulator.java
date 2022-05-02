@@ -18,7 +18,7 @@ public class Simulator {
 
         UserInterface ui = new UserInterface();
         ui.showGUI();
-        StdAudio.play("good4u.wav");
+        StdAudio.playInBackground("good4u.wav");
         while (true) {
             if (ui.getHasSubmitted()) {
                 ui.setHasSubmitted(false);
