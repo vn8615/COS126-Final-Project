@@ -1,4 +1,4 @@
-public class simulator {
+public class Simulator {
 
     // runs GUI; when values submitted, runs model method and sets hasSubmitted false for user interface
     public static void main(String[] args) {
