@@ -1,8 +1,10 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UserInterface extends JPanel implements ActionListener {
+    // declare instance variables for swing elements: frame, button, text fields, labels
     private JFrame f;
     private JButton b;
 
@@ -22,74 +24,94 @@ public class UserInterface extends JPanel implements ActionListener {
     private JLabel thetaText;
     private JLabel betaText;
 
+    GridLayout layout = new GridLayout(0, 2);
+
+    // declare and initialize array to store values from Swing input
     private double[] values = new double[7];
 
+    // declare and initialize boolean for whether "submit" has been pressed
     private volatile boolean hasSubmitted = false;
 
+    // method for showing the Swing GUI
     public void showGUI() {
-        f = new JFrame("textfield");
+        // initialize instance variables to sizes, names and other settings; add Action Listener to submit button
+        f = new JFrame("inputs");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        b = new JButton("submit");
+        b = new JButton("Submit");
         b.addActionListener(this);
 
-        //TODO: capitalize!
         tau = new JTextField(20);
-        tauText = new JLabel("tau");
+        tauText = new JLabel("Tau (seconds)");
         dt = new JTextField(20);
-        dtText = new JLabel("time interval");
+        dtText = new JLabel("Time interval (seconds)");
         k = new JTextField(20);
-        kText = new JLabel("spring constant");
+        kText = new JLabel("Spring constant (N/m)");
         m = new JTextField(20);
-        mText = new JLabel("mass");
+        mText = new JLabel("Mass (g)");
         A = new JTextField(20);
-        AText = new JLabel("amplitude");
+        AText = new JLabel("Amplitude (m)");
         theta = new JTextField(20);
-        thetaText = new JLabel("angle");
+        thetaText = new JLabel("Angle (degrees)");
         beta = new JTextField(20);
-        betaText = new JLabel("beta");
+        betaText = new JLabel("Beta (kg/s)");
         JPanel p = new JPanel();
+        p.setLayout(layout);
 
+        // create another panel for button
+        JPanel pButton = new JPanel();
+
+        // store text fields and labels in arrays for easy addition to panel
         JTextField[] fields = {tau, dt, k, m, A, theta, beta};
         JLabel[] labels = {tauText, dtText, kText, mText, AText, thetaText, betaText};
 
+        // add text fields and labels to first panel
         for (int i = 0; i < fields.length; i++) {
             p.add(labels[i]);
             p.add(fields[i]);
         }
-        p.add(b);
 
-        f.add(p);
+        // add button to corresponding panel
+        pButton.add(b);
 
-        //TODO: Adjust window to look nice upon opening. I removed the pack already.
-        //TODO: Also position text so that it centers itself on the window, do two columns then go two inputs per *line*
-        f.setSize(575, 500);
+        // add respective panels to JFrame with proper layout, present frame
+        f.add(p, BorderLayout.CENTER);
+        f.add(pButton, BorderLayout.SOUTH);
+
+        f.setSize(500, 500);
         f.setVisible(true);
     }
 
+    // determines actions following user input event
     public void actionPerformed(ActionEvent evt) {
-        //TODO: capitalize!
+        // store command from action event in s
         String s = evt.getActionCommand();
         JTextField[] fields = {tau, dt, k, m, A, theta, beta};
-        if (s.equals("submit")) {
+
+        // store input values in instance array "values" and reset text fields to empty
+        if (s.equals("Submit")) {
             for (int i = 0; i < values.length; i++) {
                 values[i] = Double.parseDouble(fields[i].getText());
             }
             for (JTextField i : fields) {
                 i.setText("");
             }
+            // hasSubmitted becomes true
             hasSubmitted = true;
         }
     }
 
+    // return value of hasSubmitted
     public boolean getHasSubmitted() {
         return hasSubmitted;
     }
 
+    // return array of input values
     public double[] getValues() {
         return values;
     }
 
+    // set the hasSubmitted value of the object to the existing hasSubmitted
     public void setHasSubmitted(boolean hasSubmitted) {
         this.hasSubmitted = hasSubmitted;
     }
