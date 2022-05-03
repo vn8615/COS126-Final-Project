@@ -14,7 +14,13 @@ public class Simulator {
     // hasSubmitted false for user interface
     public static void main(String[] args) {
         // Test the model function
-        // model(new double[]{100, .1, 10, 1, 5, 0, 0});
+        model(new double[]{10, .1, 10, 1, 5, 0, 0}); // outputs StdDraw window with spring motion set to the outputs
+        model(new double[]{10, 0.1, 10, 1, 5, 40, 0});
+        // test decomposition
+        double[] decomposition = decompose(1, 45);
+        StdOut.println("(" + decomposition[0] + ", " + decomposition[1] + ")"); // expected: (0.707, 0.707)
+        double[] decomposition1 = decompose(1, 0);
+        StdOut.println("(" + decomposition1[0] + ", " + decomposition1[1] + ")"); // expected: (0.0, 1.0)
 
         UserInterface ui = new UserInterface();
         ui.showGUI();
